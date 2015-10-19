@@ -1,0 +1,5 @@
+= Status Quo CHANGELOG
+
+== Version 0.1.0 (xx xx, 2015)
+
+* Initial release
