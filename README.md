@@ -2,6 +2,35 @@
 
 Monitor the status of your application. Send alerts and visualize the application status over time
 
+### Usage
+
+```ruby
+StatusQuo.watch :social_media do
+
+  segment :facebook do
+    schedule "30 9 * * *"
+    confirm do
+      `curl -sL -w "%{http_code}" "http://facebook.com" -o /dev/null` == "200"
+    end
+  end
+
+  segment :twitter do
+    schedule "30 9 * * *"
+    confirm do
+      `curl -sL -w "%{http_code}" "http://twitter.com" -o /dev/null` == "200"
+    end
+  end
+
+  segment :instagram do
+    schedule "30 9 * * *"
+    confirm do
+      `curl -sL -w "%{http_code}" "http://instagram.com" -o /dev/null` == "200"
+    end
+  end
+
+end
+```
+
 ### License
 
 Copyright (c) 2015 Bram Engel, released under the MIT License
