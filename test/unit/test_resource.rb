@@ -8,7 +8,7 @@ module Unit
       describe "#initialize" do
         it "stores the passed identifier" do
           resource = StatusQuo::Resource.new(:foo)
-          assert_equal resource.instance_variable_get(:@identifier), :foo
+          assert_equal :foo, resource.instance_variable_get(:@identifier)
         end
 
         it "executes the given block" do
@@ -23,7 +23,7 @@ module Unit
       describe "#identifier" do
         it "returns its identifier" do
           resource = StatusQuo::Resource.new(:foo)
-          assert_equal resource.identifier, :foo
+          assert_equal :foo, resource.identifier
         end
       end
 
@@ -40,13 +40,27 @@ module Unit
       end
 
       describe "#segment" do
-        it "initializes a new Resources::Segment" do
+        it "initializes a new StatusQuo::Resource::Segment" do
+          resource = StatusQuo::Resource.new(:foo)
+          StatusQuo::Resource::Segment.expects(:new).with(:identifier)
+          resource.segment(:identifier)
         end
 
-        it "executes the given block to the Resources::Segment" do
+        it "executes the given code block indirectly (the segment instance actually executes it)" do
+          object = mock
+          object.expects(:foobar)
+          resource = StatusQuo::Resource.new(:identifier)
+          resource.segment(:identifier) do
+            object.foobar
+          end
         end
 
-        it "appends the initialized segment to Resources.segments" do
+        it "appends the initialized segment to StatusQuo::Resource#segments" do
+          segment = mock
+          StatusQuo::Resource::Segment.expects(:new).with(:foo).returns(segment)
+          resource = StatusQuo::Resource.new(:identifier)
+          resource.segment(:foo)
+          assert_equal segment.object_id, resource.segments.last.object_id
         end
       end
 

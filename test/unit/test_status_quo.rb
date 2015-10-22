@@ -26,7 +26,7 @@ module Unit
           StatusQuo.watch(:identifier)
         end
 
-        it "executes the given code block to the StatusQuo::Resource" do
+        it "executes the given code block indirectly (the resource instance actually executes it)" do
           object = mock
           object.expects(:foobar)
           StatusQuo.watch(:identifier) do
@@ -38,7 +38,7 @@ module Unit
           resource = mock
           StatusQuo::Resource.expects(:new).with(:identifier).returns(resource)
           StatusQuo.watch(:identifier)
-          assert_equal StatusQuo.resources.last.object_id, resource.object_id
+          assert_equal resource.object_id, StatusQuo.resources.last.object_id
         end
       end
     end
