@@ -64,6 +64,17 @@ module Unit
         end
       end
 
+      describe "#confirm!" do
+        it "iterates through its segments and invokes #confirm! on them" do
+          resource = StatusQuo::Resource.new(:identifier)
+          segment1 = mock
+          segment2 = mock
+          segment1.expects(:confirm!)
+          segment2.expects(:confirm!)
+          resource.segments.push(segment1, segment2)
+          resource.confirm!
+        end
+      end
     end
 
   end

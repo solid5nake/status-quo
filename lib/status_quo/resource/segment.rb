@@ -19,6 +19,10 @@ module StatusQuo
         @confirm = block
       end
 
+      def confirm!
+        @confirm.call
+      end
+
     end
   end
 end

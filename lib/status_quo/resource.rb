@@ -21,5 +21,11 @@ module StatusQuo
       segments.push(segment)
     end
 
+    def confirm!
+      segments.each do |segment|
+        segment.confirm!
+      end
+    end
+
   end
 end

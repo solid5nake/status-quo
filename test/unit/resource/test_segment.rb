@@ -41,11 +41,27 @@ module Unit
             segment = StatusQuo::Resource::Segment.new(:identifier)
             object = mock
             object.expects(:foobar)
+
             segment.confirm do
               object.foobar
             end
+
             assert segment.instance_variable_get(:@confirm).is_a?(Proc)
             segment.instance_variable_get(:@confirm).call
+          end
+        end
+
+        describe "#confirm!" do
+          it "executes the block given to #confirm" do
+            segment = StatusQuo::Resource::Segment.new(:identifier)
+            object = mock
+            object.expects(:foobar)
+
+            segment.confirm do
+              object.foobar
+            end
+
+            segment.confirm!
           end
         end
 

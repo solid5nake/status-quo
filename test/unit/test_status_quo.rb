@@ -41,6 +41,18 @@ module Unit
           assert_equal resource.object_id, StatusQuo.resources.last.object_id
         end
       end
+
+      describe ".confirm!" do
+        it "iterates through its resources and invokes #confirm! on them" do
+          resource1 = mock
+          resource2 = mock
+          resource1.expects(:confirm!)
+          resource2.expects(:confirm!)
+          StatusQuo.resources.clear
+          StatusQuo.resources.push(resource1, resource2)
+          StatusQuo.confirm!
+        end
+      end
     end
 
   end

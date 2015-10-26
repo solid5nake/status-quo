@@ -12,4 +12,10 @@ module StatusQuo
     resources.push(resource)
   end
 
+  def self.confirm!
+    resources.each do |resource|
+      resource.confirm!
+    end
+  end
+
 end
