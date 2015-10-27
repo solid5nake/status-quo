@@ -1,4 +1,4 @@
-## Status Quo
+## Status Quo [![Code Climate](https://codeclimate.com/github/solid5nake/status-quo/badges/gpa.svg)](https://codeclimate.com/github/solid5nake/status-quo)
 
 Monitor the status of your application. Send alerts and visualize the application status over time
 
