@@ -1,7 +1,13 @@
+require "active_record"
+
 require "status_quo/resource"
+require "status_quo/event"
 require "status_quo/version"
 
 module StatusQuo
+
+  class Error < StandardError; end
+  class InvalidConfirmationError < Error; end
 
   def self.resources
     @resources ||= []

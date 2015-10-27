@@ -16,9 +16,12 @@ Gem::Specification.new do |gem|
   gem.version       = StatusQuo::VERSION
   gem.licenses      = ["MIT"]
 
+  gem.add_dependency "activerecord", ">= 3.2.13"
+
   gem.add_development_dependency "rake"
   gem.add_development_dependency "yard"
   gem.add_development_dependency "pry"
+  gem.add_development_dependency "mysql2", "~> 0.3.18"
   gem.add_development_dependency "simplecov"
   gem.add_development_dependency "minitest"
   gem.add_development_dependency "mocha"

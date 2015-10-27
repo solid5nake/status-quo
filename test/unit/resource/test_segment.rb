@@ -59,12 +59,63 @@ module Unit
 
             segment.confirm do
               object.foobar
+              true
             end
 
             segment.confirm!
           end
+
+          describe "return value validation" do
+            describe "when @confirm returns true" do
+              it "accepts the true value" do
+                segment = StatusQuo::Resource::Segment.new(:identifier)
+                segment.confirm do
+                  :bram == :bram
+                end
+                segment.confirm!
+              end
+            end
+
+            describe "when @confirm returns false" do
+              it "accepts the false value" do
+                segment = StatusQuo::Resource::Segment.new(:identifier)
+                segment.confirm do
+                  :bram == :engel
+                end
+                segment.confirm!
+              end
+            end
+
+            describe "when @confirm returns a non-boolean value" do
+              it "raises an InvalidConfirmationError" do
+                segment = StatusQuo::Resource::Segment.new(:identifier)
+                segment.confirm do
+                  :bram
+                end
+                assert_raises StatusQuo::InvalidConfirmationError do
+                  segment.confirm!
+                end
+              end
+            end
+          end
+
+          describe "when @confirm returns true" do
+            it "invokes #create_event! with true" do
+              segment = StatusQuo::Resource::Segment.new(:identifier)
+              segment.expects(:create_event!).with(true)
+              segment.confirm do
+                true
+              end
+              segment.confirm!
+            end
+          end
         end
 
+        describe "#create_event!" do
+          it "" do
+
+          end
+        end
       end
 
     end
