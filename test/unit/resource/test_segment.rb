@@ -113,8 +113,9 @@ module Unit
 
           describe "when @confirm returns true" do
             it "invokes #create_event! with true" do
-              segment.expects(:create_event!).with(true)
+              Time.expects(:now).returns(:now)
               segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+              segment.expects(:create_event!).with(:now, true)
               segment.confirm do
                 true
               end
@@ -124,10 +125,22 @@ module Unit
         end
 
         describe "#create_event!" do
-          it "" do
+          describe "when invoked" do
+            it "creates an event record 'moment' with time.now in the db " do
+              segment = StatusQuo::Resource::Segment.new(:resource, :moment)
+              segment.send :create_event!, Time.now, :status
+            end
+          end
 
+          describe "when passed 'status' true" do
+            it "creates an event record in the db with status true" do
+              segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+              segment.send :create_event!, Time.now, true
+              assert_equal "OK", StatusQuo::Event.last.status
+            end
           end
         end
+
       end
 
     end

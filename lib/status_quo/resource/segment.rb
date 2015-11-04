@@ -24,10 +24,10 @@ module StatusQuo
         @confirm = block
       end
 
-      def confirm!#(time = Time.now)
+      def confirm!(moment = Time.now)
         value = @confirm.call
         if [true, false].include?(value)
-          create_event! value
+          create_event! moment, value
         else
           raise InvalidConfirmationError, "Expected boolean (got #{value.inspect})"
         end
@@ -35,8 +35,9 @@ module StatusQuo
 
     private
 
-      def create_event!(status)
-        StatusQuo::Event.create :segment => identifier
+      def create_event!(moment, status)
+        status = status ? "OK" : "FAIL"
+        StatusQuo::Event.create :resource => resource, :segment => identifier, :moment => moment, :status => status
       end
 
     end
