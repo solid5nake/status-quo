@@ -42,7 +42,7 @@ module Unit
       describe "#segment" do
         it "initializes a new StatusQuo::Resource::Segment" do
           resource = StatusQuo::Resource.new(:foo)
-          StatusQuo::Resource::Segment.expects(:new).with(:identifier)
+          StatusQuo::Resource::Segment.expects(:new).with(:foo, :identifier)
           resource.segment(:identifier)
         end
 
@@ -57,7 +57,7 @@ module Unit
 
         it "appends the initialized segment to StatusQuo::Resource#segments" do
           segment = mock
-          StatusQuo::Resource::Segment.expects(:new).with(:foo).returns(segment)
+          StatusQuo::Resource::Segment.expects(:new).with(:identifier, :foo).returns(segment)
           resource = StatusQuo::Resource.new(:identifier)
           resource.segment(:foo)
           assert_equal segment.object_id, resource.segments.last.object_id

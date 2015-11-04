@@ -7,30 +7,42 @@ module Unit
       describe StatusQuo::Resource::Segment do
 
         describe "#initialize" do
+          it "stores the passed resource" do
+            segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+            assert_equal :resource, segment.instance_variable_get(:@resource)
+          end
+
           it "stores the passed identifier" do
-            segment = StatusQuo::Resource::Segment.new(:foo)
+            segment = StatusQuo::Resource::Segment.new(:resource, :foo)
             assert_equal :foo, segment.instance_variable_get(:@identifier)
           end
 
           it "executes the given block" do
             object = mock
             object.expects(:foobar)
-            StatusQuo::Resource::Segment.new(:identifier) do
+            StatusQuo::Resource::Segment.new(:resource, :identifier) do
               object.foobar
             end
           end
         end
 
+        describe "#resource" do
+          it "returns its resource" do
+            segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+            assert_equal :resource, segment.resource
+          end
+        end
+
         describe "#identifier" do
           it "returns its identifier" do
-            segment = StatusQuo::Resource::Segment.new(:identifier)
+            segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
             assert_equal :identifier, segment.identifier
           end
         end
 
         describe "#schedule" do
           it "stores the passed schedule" do
-            segment = StatusQuo::Resource::Segment.new(:identifier)
+            segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
             segment.schedule("0 * * * *")
             assert_equal "0 * * * *", segment.instance_variable_get(:@schedule)
           end
@@ -38,7 +50,7 @@ module Unit
 
         describe "#confirm" do
           it "stores the given block as an instance variable" do
-            segment = StatusQuo::Resource::Segment.new(:identifier)
+            segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
             object = mock
             object.expects(:foobar)
 
@@ -53,7 +65,7 @@ module Unit
 
         describe "#confirm!" do
           it "executes the block given to #confirm" do
-            segment = StatusQuo::Resource::Segment.new(:identifier)
+            segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
             object = mock
             object.expects(:foobar)
 
@@ -68,7 +80,7 @@ module Unit
           describe "return value validation" do
             describe "when @confirm returns true" do
               it "accepts the true value" do
-                segment = StatusQuo::Resource::Segment.new(:identifier)
+                segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
                 segment.confirm do
                   :bram == :bram
                 end
@@ -78,7 +90,7 @@ module Unit
 
             describe "when @confirm returns false" do
               it "accepts the false value" do
-                segment = StatusQuo::Resource::Segment.new(:identifier)
+                segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
                 segment.confirm do
                   :bram == :engel
                 end
@@ -88,7 +100,7 @@ module Unit
 
             describe "when @confirm returns a non-boolean value" do
               it "raises an InvalidConfirmationError" do
-                segment = StatusQuo::Resource::Segment.new(:identifier)
+                segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
                 segment.confirm do
                   :bram
                 end
@@ -101,8 +113,8 @@ module Unit
 
           describe "when @confirm returns true" do
             it "invokes #create_event! with true" do
-              segment = StatusQuo::Resource::Segment.new(:identifier)
               segment.expects(:create_event!).with(true)
+              segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
               segment.confirm do
                 true
               end

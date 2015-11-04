@@ -17,7 +17,7 @@ module StatusQuo
     end
 
     def segment(identifier, &block)
-      segment = StatusQuo::Resource::Segment.new(identifier, &block)
+      segment = StatusQuo::Resource::Segment.new(self.identifier, identifier, &block)
       segments.push(segment)
     end
 

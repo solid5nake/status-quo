@@ -2,9 +2,14 @@ module StatusQuo
   class Resource
     class Segment
 
-      def initialize(identifier, &block)
+      def initialize(resource, identifier, &block)
+        @resource = resource
         @identifier = identifier
         instance_exec &block if block_given?
+      end
+
+      def resource
+        @resource
       end
 
       def identifier
