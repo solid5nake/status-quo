@@ -1,6 +1,7 @@
 require "active_record"
 require "action_mailer"
 
+require "status_quo/engine" if defined?(Rails::Engine)
 require "status_quo/resource"
 require "status_quo/event"
 require "status_quo/notifier"

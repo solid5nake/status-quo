@@ -1,0 +1,52 @@
+<div class="status_quo_events">
+<% sq_table_data(start_date, end_date).each do |resource, segments| %>
+  <h2><%= resource.humanize %></h2>
+  <table cellspacing="0">
+    <thead>
+      <tr>
+        <th class="month">
+          <%= start_date.strftime("%B") %>
+        </th>
+        <% start_date.upto(end_date) do |date| %>
+          <th class="day">
+            <%= date.day %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% segments.each do |segment, events| %>
+        <tr>
+          <td class="segment">
+            <div><%= segment.humanize %></div>
+          </td>
+          <%
+            events = events.inject({}) do |hash, array|
+              key = array.shift
+              hash[key] = array
+              hash
+            end
+          %>
+          <% start_date.upto(end_date) do |date| %>
+            <td class="status">
+              <%
+                oks, fails, last_status = events[date.to_s]
+                css_class = begin
+                  if oks > 0 && fails.zero?
+                    "all_ok"
+                  elsif oks.zero? && fails > 0
+                    "all_fail"
+                  else
+                    "mixed"
+                  end
+                end
+              %>
+              <div class="<%= css_class %> <%= last_status.downcase %>">&nbsp;</div>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+</div>
