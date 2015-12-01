@@ -156,6 +156,40 @@ module Unit
           end
         end
 
+        describe "#response_code" do
+          describe "when website returns the expected HTTP-code" do
+            it "returns true" do
+              segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+              FakeWeb.register_uri(:get, "http://twitter.com/", :status => "200")
+              assert_equal true, segment.response_code("http://twitter.com", 200)
+              assert_equal true, segment.response_code("http://twitter.com", "200")
+            end
+          end
+          describe "when website returns unexpected HTTP-code" do
+            it "returns false" do
+              segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+              FakeWeb.register_uri(:get, "http://instagram.com/", :status => "404")
+              assert_equal false, segment.response_code("http://instagram.com", 200)
+            end
+          end
+          describe "ranges" do
+            it "supports regular expressions" do
+              segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+              regexp = /20./
+              FakeWeb.register_uri(:get, "http://facebook.com", :status => "200")
+              assert_equal true, segment.response_code("http://facebook.com", regexp)
+              FakeWeb.register_uri(:get, "http://facebook.com", :status => "201")
+              assert_equal true, segment.response_code("http://facebook.com", regexp)
+              FakeWeb.register_uri(:get, "http://facebook.com", :status => "202")
+              assert_equal true, segment.response_code("http://facebook.com", regexp)
+              FakeWeb.register_uri(:get, "http://facebook.com", :status => "203")
+              assert_equal true, segment.response_code("http://facebook.com", regexp)
+              FakeWeb.register_uri(:get, "http://facebook.com", :status => "301")
+              assert_equal false, segment.response_code("http://facebook.com", regexp)
+            end
+          end
+        end
+
         describe "#create_event!" do
           it "creates an event record 'moment' with time.now in the database" do
             segment = StatusQuo::Resource::Segment.new(:resource, :moment)

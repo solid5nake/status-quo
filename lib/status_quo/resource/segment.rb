@@ -43,6 +43,13 @@ module StatusQuo
         end
       end
 
+      def response_code(uri, http_code)
+        uri = URI(uri)
+        response = Net::HTTP.get_response(uri)
+        regexp = Regexp.new http_code.to_s
+        !!(response.code =~ regexp)
+      end
+
     private
 
       def create_event!(moment, status)
