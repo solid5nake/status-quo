@@ -1,8 +1,12 @@
 require "active_record"
+require "action_mailer"
 
 require "status_quo/resource"
 require "status_quo/event"
+require "status_quo/notifier"
 require "status_quo/version"
+
+ActionMailer::Base.view_paths = File.expand_path("../../app/views", __FILE__)
 
 module StatusQuo
 

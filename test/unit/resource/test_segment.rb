@@ -40,6 +40,24 @@ module Unit
           end
         end
 
+        describe "#recipient" do
+          describe "when given an argument" do
+            it "stores the passed recipient" do
+              segment = StatusQuo::Resource::Segment.new(:resource, :recipient)
+              segment.recipient("engelenburg1980@gmail.com")
+              assert_equal "engelenburg1980@gmail.com", segment.instance_variable_get(:@recipient)
+            end
+          end
+          describe "when no argument is passed" do
+            it "returns the stored recipient" do
+              segment = StatusQuo::Resource::Segment.new(:resource, :recipient)
+              assert_nil segment.recipient
+              segment.instance_variable_set(:@recipient, "engelenburg1980@gmail.com")
+              assert_equal "engelenburg1980@gmail.com", segment.recipient
+            end
+          end
+        end
+
         describe "#schedule" do
           it "stores the passed schedule" do
             segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
@@ -68,50 +86,34 @@ module Unit
             segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
             object = mock
             object.expects(:foobar)
-
             segment.confirm do
               object.foobar
               true
             end
-
             segment.confirm!
           end
 
-          describe "return value validation" do
-            describe "when @confirm returns true" do
-              it "accepts the true value" do
-                segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
-                segment.confirm do
-                  :bram == :bram
-                end
-                segment.confirm!
+          describe "when @confirm returns a non-boolean value" do
+            it "raises an InvalidConfirmationError" do
+              segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+              segment.confirm do
+                :bram
               end
-            end
-
-            describe "when @confirm returns false" do
-              it "accepts the false value" do
-                segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
-                segment.confirm do
-                  :bram == :engel
-                end
+              assert_raises StatusQuo::InvalidConfirmationError do
                 segment.confirm!
-              end
-            end
-
-            describe "when @confirm returns a non-boolean value" do
-              it "raises an InvalidConfirmationError" do
-                segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
-                segment.confirm do
-                  :bram
-                end
-                assert_raises StatusQuo::InvalidConfirmationError do
-                  segment.confirm!
-                end
               end
             end
           end
 
           describe "when @confirm returns true" do
+            it "accepts the true value" do
+              segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+              segment.confirm do
+                :bram == :bram
+              end
+              segment.confirm!
+            end
+
             it "invokes #create_event! with true" do
               Time.expects(:now).returns(:now)
               segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
@@ -122,25 +124,77 @@ module Unit
               segment.confirm!
             end
           end
+
+          describe "when @confirm returns false" do
+            it "accepts the false value" do
+              segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+              segment.confirm do
+                :bram == :engel
+              end
+              segment.confirm!
+            end
+
+            it "invokes #create_event! with false" do
+              now = Time.now
+              Time.expects(:now).at_least_once.returns(now)
+              segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+              segment.expects(:create_event!).with(now, false)
+              segment.confirm do
+                false
+              end
+              segment.confirm!
+            end
+
+            it "invokes #notify" do
+              segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+              segment.expects(:notify)
+              segment.confirm do
+                false
+              end
+              segment.confirm!
+            end
+          end
         end
 
         describe "#create_event!" do
-          describe "when invoked" do
-            it "creates an event record 'moment' with time.now in the db " do
-              segment = StatusQuo::Resource::Segment.new(:resource, :moment)
-              segment.send :create_event!, Time.now, :status
-            end
+          it "creates an event record 'moment' with time.now in the database" do
+            segment = StatusQuo::Resource::Segment.new(:resource, :moment)
+            segment.send :create_event!, Time.now, :status
           end
 
           describe "when passed 'status' true" do
-            it "creates an event record in the db with status true" do
+            it "creates an event record in the db with status OK" do
               segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
               segment.send :create_event!, Time.now, true
               assert_equal "OK", StatusQuo::Event.last.status
             end
           end
+
+          describe "when passed 'status' false" do
+            it "creates an event record in the db with status FAIL" do
+              segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+              segment.send :create_event!, Time.now, false
+              assert_equal "FAIL", StatusQuo::Event.last.status
+            end
+          end
         end
 
+        describe "#notify" do
+          describe "when specified recipient" do
+            it "sends an email to the recipient" do
+              segment = StatusQuo::Resource::Segment.new(:resource, :recipient)
+              segment.instance_variable_set(:@recipient, "foo@bar.com")
+              segment.send :notify, StatusQuo::Event.new(:resource => "toys", :segment => "lego")
+              assert_equal ["foo@bar.com"], ActionMailer::Base.deliveries.last.to
+            end
+          end
+          describe "when no specified recipient" do
+            it "does nothing" do
+              segment = StatusQuo::Resource::Segment.new(:resource, :identifier)
+              segment.send :notify, StatusQuo::Event.new
+            end
+          end
+        end
       end
 
     end

@@ -7,7 +7,7 @@ ActiveRecord::Base.establish_connection config.merge("database" => nil)
 ActiveRecord::Base.connection.create_database database, {:charset => "utf8", :collation => "utf8_unicode_ci"} rescue nil
 ActiveRecord::Base.establish_connection config
 
-ActiveRecord::Base.connection.drop_table(:status_quo_events)
+ActiveRecord::Base.connection.drop_table(:status_quo_events) if ActiveRecord::Base.connection.table_exists?(:status_quo_events)
 ActiveRecord::Base.connection.create_table(:status_quo_events) do |t|
   t.string :resource
   t.string :segment

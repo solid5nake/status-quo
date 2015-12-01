@@ -15,6 +15,7 @@ StatusQuo.watch :social_media do
   end
 
   segment :twitter do
+    recipient "engelenburg1980@gmail.com"
     schedule "30 9 * * *"
     confirm do
       `curl -sL -w "%{http_code}" "http://twitter.com" -o /dev/null` == "200"

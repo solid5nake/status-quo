@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:200,100' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+      body {
+        background: #F0F0E1;
+        padding: 10px;
+      }
+      table.wrapper {
+        padding: 50px;
+        width: 400px;
+        height: 300px;
+        margin: auto;
+        background: #F3FAE4;
+      }
+    </style>
+  </head>
+
+  <body>
+    <table class="wrapper"><tr><td>
+      <table>
+        <tr>
+          <h1 style="font-family: Raleway; font-weight: 100; font-size: 20px; letter-spacing: -1px;"><%= @title %></h1>
+        </tr>
+        <tr>
+          <td>
+            <%= yield %>
+          </td>
+        </tr>
+      </table>
+
+
+      <table style="font-family: Helvetica; font-weight: 100; font-size: 11px; color: #297045;">
+        <td>StatusQuo</td>
+        <td><%= Date.today %></td>
+      </table>
+    </td></tr></table>
+  </body>
+</html>

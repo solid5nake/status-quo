@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
   gem.licenses      = ["MIT"]
 
   gem.add_dependency "activerecord", ">= 3.2.13"
+  gem.add_dependency "actionmailer"
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "yard"

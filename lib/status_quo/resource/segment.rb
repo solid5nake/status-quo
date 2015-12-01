@@ -16,6 +16,14 @@ module StatusQuo
         @identifier
       end
 
+      def recipient(recipient = nil)
+        if recipient.nil?
+          @recipient
+        else
+          @recipient = recipient
+        end
+      end
+
       def schedule(schedule)
         @schedule = schedule
       end
@@ -24,12 +32,14 @@ module StatusQuo
         @confirm = block
       end
 
+      # Runs the given confirm block and notifies about failed confirmations when expected.
       def confirm!(moment = Time.now)
-        value = @confirm.call
-        if [true, false].include?(value)
-          create_event! moment, value
+        result = instance_exec &@confirm
+        if [true, false].include?(result)
+          event = create_event! moment, result
+          notify(event) unless result
         else
-          raise InvalidConfirmationError, "Expected boolean (got #{value.inspect})"
+          raise InvalidConfirmationError, "Expected boolean (got #{result.inspect})"
         end
       end
 
@@ -38,6 +48,12 @@ module StatusQuo
       def create_event!(moment, status)
         status = status ? "OK" : "FAIL"
         StatusQuo::Event.create :resource => resource, :segment => identifier, :moment => moment, :status => status
+      end
+
+      def notify(event)
+        if recipient
+          StatusQuo::Notifier.event_notice(recipient, event).deliver_now
+        end
       end
 
     end
