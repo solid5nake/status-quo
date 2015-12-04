@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>StatusQ</title>
+    <%= stylesheet_link_tag    "status_quo/application", media: "all" %>
+    <%= javascript_include_tag "status_quo/application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div id="header">
+      <div class="bar">
+        <h2>StatusQ</h2>
+        <div class="bar-right">
+          <div class="sign_in">
+            <p>Hi, Solid5nake</p>
+          </div>
+        </div>
+      </div>
+      <%= yield :header %>
+    </div>
+    <div id="container">
+      <%= yield %>
+    </div>
+    <footer></footer>
+  </body>
+</html>

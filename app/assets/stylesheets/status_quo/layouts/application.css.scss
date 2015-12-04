@@ -1,0 +1,77 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+@font-face {
+  font-family: 'Proxima Nova Light';
+  font-weight: light;
+  src: asset_url('proximanova-light-webfont.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Proxima Nova Thin';
+  font-weight: 100;
+  src: asset_url('ProximaNova-Thin.otf') format('truetype');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+  min-width: 1166px;
+  background: #F1F9E0;
+}
+
+footer {
+  position:relative;
+  height: 40px;
+  background: #F0F0E1;
+  border-top: 1px solid #DDD;
+}
+
+#header {
+  .bar {
+    line-height: 45px;
+    font-family: 'Proxima Nova Light';
+    overflow: auto;
+    h2 {
+      padding: 0 45px;
+      font-size: 23px;
+      font-weight: 100;
+      letter-spacing: -1px;
+      color: #525260;
+      float: left;
+      border-right: 1px solid #DDD;
+    }
+    .bar-right {
+      float: right;
+      border-left: 1px solid #DDD;
+      padding-left: 17px;
+      padding-right: 76px;
+      min-width: 129px;
+      .sign_in {
+        font-size: 12px;
+        letter-spacing: -0.5px;
+        color: #008C8C;
+        padding-left: 45px;
+        padding-right: 15px;
+        background: asset_url('avatar.png') 0 center no-repeat;
+      }
+    }
+  }
+}
+
+#container {
+  padding-bottom: 40px;
+  width: 800px;
+  height: 400px;
+  min-height: 100%;
+  margin: auto;
+  margin-top: -192px;
+}

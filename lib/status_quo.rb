@@ -1,13 +1,8 @@
-require "active_record"
-require "action_mailer"
-
-require "status_quo/engine" if defined?(Rails::Engine)
+require "status_quo/engine"
 require "status_quo/resource"
 require "status_quo/event"
 require "status_quo/notifier"
 require "status_quo/version"
-
-ActionMailer::Base.view_paths = File.expand_path("../../app/views", __FILE__)
 
 module StatusQuo
 
@@ -23,9 +18,9 @@ module StatusQuo
     resources.push(resource)
   end
 
-  def self.confirm!
+  def self.confirm!(moment = nil)
     resources.each do |resource|
-      resource.confirm!
+      resource.confirm!(moment)
     end
   end
 

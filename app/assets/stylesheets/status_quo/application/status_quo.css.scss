@@ -1,0 +1,57 @@
+.status_quo_events {
+  margin-top: 73px;
+  font-family: 'Proxima Nova Thin';
+  font-weight: 100;
+  color: #3F3F3F;
+  letter-spacing: -0.5px;
+  h2 {
+    letter-spacing: -1px;
+    font-size: 19px;
+    color: #212121;
+  }
+  table {
+    min-width: 650px;
+    padding-top: 28px;
+    margin: auto;
+    th {
+      padding-bottom: 10px;
+      &.month {
+        text-align: center;
+      }
+      &.day {
+        text-align: center;
+      }
+    }
+    td {
+      div {
+        margin: 5px 0;
+        background: #F0F0E1;
+        line-height: 35px;
+        text-align: right;
+      }
+      &.segment {
+        div {
+          text-align: center;
+        }
+      }
+      &.status {
+        width: 70px;
+        div {
+          text-align: center;
+          &.all_ok {
+            background: #F0F0E1 asset_url('green.png') center center no-repeat;
+          }
+          &.all_fail {
+            background: #F0F0E1 asset_url('red.png') center center no-repeat;
+          }
+          &.mixed.ok {
+            background: #F0F0E1 asset_url('orange_ok.png') center center no-repeat;
+          }
+          &.mixed.fail {
+            background: #F0F0E1 asset_url('orange_fail.png') center center no-repeat;
+          }
+        }
+      }
+    }
+  }
+}

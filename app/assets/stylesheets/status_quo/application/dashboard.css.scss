@@ -1,0 +1,166 @@
+#header {
+  .gradient {
+    height: 192px;
+    overflow: auto;
+    font-family: 'Proxima Nova Light';
+    color: #AAA;
+    background: #131304; /* Old browsers */
+    background: -moz-linear-gradient(top,  #131304 50%, #004040 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #131304 50%,#004040 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #131304 50%,#004040 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#131304', endColorstr='#004040',GradientType=0 ); /* IE6-9 */
+    border-top: 1px solid #004040; /* Border added to ensure correct margin behaviour of dashboard_icon */
+    .dashboard_icon {
+      margin: 16px 0 0 30px;
+      width: 137px;
+      height: 40px;
+      float: left;
+      background: asset_url('dashboard.png') 0 0 no-repeat;
+    }
+    .clock {
+      width: 183px;
+      padding-left: 14px;
+      margin-top: 18px;
+      margin-right: 38px;
+      float: right;
+      background: asset_url('triangle-clock.png') 0 4px no-repeat;
+      strong, small {
+        display: block;
+        font-size: 20px;
+        letter-spacing: -0.5px;
+      }
+      strong {
+        font-weight: 100;
+      }
+      small {
+        font-size: 11px;
+        padding-top: 1px;
+      }
+      border-right: 1px solid #CCC;
+    }
+  }
+}
+
+#container {
+  .dashboard {
+    height: 192px;
+    padding-top: 13px;
+    overflow: auto;
+    span {
+      font-family: 'Proxima Nova Light';
+      font-size: 13px;
+      letter-spacing: -0.5px;
+      color: #CCC;
+      display: block;
+    }
+    h2, h3, small {
+      font-family: 'Proxima Nova Thin';
+      font-weight: 100;;
+      letter-spacing: -1px;
+      color: #F1F8DF;
+    }
+    .current_status {
+      min-width: 285px;
+      float: left;
+      span {
+        text-align: center;
+      }
+      div.status_counter {
+        padding-top: 30px;
+        padding-left: 75px;
+        small {
+          font-size: 20px;
+          padding-right: 20px;
+          &.up {
+            background: asset_url('up_icon.png') center right no-repeat;
+          }
+        }
+        h2 {
+          font-size: 60px;
+          display: inline;
+          margin-left: 4px;
+        }
+      }
+    }
+    .uptime {
+      min-width: 217px;
+      padding-left: 13px;
+      float: left;
+      div.progress_meter {
+        min-height: 137px;
+        margin-left: -12px;
+        margin-top: 6px;
+        border-left: 1px solid #CCC;
+        border-right: 1px solid #CCC;
+
+        .progress-radial {
+          margin: auto;
+          position: relative;
+          width: 137px;
+          height: 137px;
+          border-radius: 50%;
+          border: 1px solid #5E6B58;
+        }
+
+        .progress-radial .overlay {
+          width: 102px;
+          height: 102px;
+          margin: auto;
+          margin-top: 17px;
+          border-radius: 50%;//
+            background: #082D27; /* Old browsers */
+            background: -moz-linear-gradient(top, #131304 45%, #082D27 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, #131304 45%, #082D27 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, #131304 45%, #082D27 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#131304', endColorstr='#004040',GradientType=0 ); /* IE6-9 */
+          border: 1px solid #5E6B58;
+          text-align: center;
+          line-height: 60px;
+          span {
+            margin-top: 21px;
+            font-family: 'Proxima Nova Thin';
+            letter-spacing: -2px;
+            font-size: 39px;
+            color: #CCC;
+          }
+        }
+
+        $barColor: #1C6B3F;
+        $overlayColor: #fffde8;
+        $backColor: #414C3C;
+        $step: 1;
+        $loops: round(100 / $step);
+        $increment: 360 / $loops;
+        $half: round($loops / 2);
+
+        @for $i from 0 through $loops {
+          .progress-#{$i * $step} {
+            @if $i < $half {
+              $nextdeg: 90deg + $increment * $i;
+
+              background-image: linear-gradient(90deg, $backColor 50%, transparent 50%, transparent), linear-gradient($nextdeg, $barColor 50%, $backColor 50%, $backColor);
+            }
+            @else {
+              $nextdeg: -90deg + $increment * ($i - $half);
+
+              background-image: linear-gradient($nextdeg, $barColor 50%, transparent 50%, transparent), linear-gradient(270deg, $barColor 50%, $backColor 50%, $backColor);
+            }
+          }
+        }
+      }
+    }
+    .downtime {
+      min-width: 255px;
+      padding-left: 13px;
+      float: left;
+      div.downtime_counter {
+        h3 {
+          font-size: 35px;
+          letter-spacing: -1px;
+          margin-top: 90px;
+          margin-left: 98px;
+        }
+      }
+    }
+  }
+}

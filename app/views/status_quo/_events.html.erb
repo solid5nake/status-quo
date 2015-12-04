@@ -32,16 +32,16 @@
               <%
                 oks, fails, last_status = events[date.to_s]
                 css_class = begin
-                  if oks > 0 && fails.zero?
+                  if oks.to_i > 0 && fails.to_i.zero?
                     "all_ok"
-                  elsif oks.zero? && fails > 0
+                  elsif oks.to_i.zero? && fails.to_i > 0
                     "all_fail"
                   else
                     "mixed"
                   end
                 end
               %>
-              <div class="<%= css_class %> <%= last_status.downcase %>">&nbsp;</div>
+              <div class="<%= css_class %> <%= last_status.to_s.downcase %>">&nbsp;</div>
             </td>
           <% end %>
         </tr>

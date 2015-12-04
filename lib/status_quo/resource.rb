@@ -21,9 +21,9 @@ module StatusQuo
       segments.push(segment)
     end
 
-    def confirm!
+    def confirm!(moment = nil)
       segments.each do |segment|
-        segment.confirm!
+        segment.confirm!(moment)
       end
     end
 

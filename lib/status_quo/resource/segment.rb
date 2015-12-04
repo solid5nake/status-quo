@@ -33,8 +33,9 @@ module StatusQuo
       end
 
       # Runs the given confirm block and notifies about failed confirmations when expected.
-      def confirm!(moment = Time.now)
-        result = instance_exec &@confirm
+      def confirm!(moment = nil)
+        moment ||= Time.now
+        result = instance_exec moment, &@confirm
         if [true, false].include?(result)
           event = create_event! moment, result
           notify(event) unless result

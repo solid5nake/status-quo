@@ -2,6 +2,7 @@ require_relative "test_helper/coverage"
 
 require "minitest/autorun"
 require "mocha/setup"
+require "rails/all"
 
 require "bundler"
 Bundler.require :default, :development

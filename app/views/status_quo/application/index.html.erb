@@ -1,0 +1,36 @@
+<%= content_for :header do %>
+  <div class="gradient">
+    <div class="dashboard_icon">
+    </div>
+    <div class="clock">
+      <% now = Time.now.utc %>
+      <strong><%= now.strftime "%l:%M %p" %></strong>
+      <small><%= now.strftime "%A, %B %d %Y" %></small>
+      <small>Coordinated Universal Time (UTC)</small>
+    </div>
+  </div>
+<% end %>
+<div class ="dashboard">
+  <div class="current_status">
+    <span>Current status</span>
+    <div class="status_counter">
+      <small class="up">Up</small>
+      <h2>3</h2>
+    </div>
+  </div>
+  <div class="uptime">
+    <span>Uptime</span>
+    <div class="progress_meter">
+      <div class="progress-radial progress-100">
+        <div class="overlay"><span>100%</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="downtime">
+    <span>Downtime</span>
+    <div class="downtime_counter">
+      <h3>0min.</h3>
+    </div>
+  </div>
+</div>
+<%= status_quo_events %>
