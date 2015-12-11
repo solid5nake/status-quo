@@ -2,27 +2,53 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <link href='https://fonts.googleapis.com/css?family=Raleway:200,100' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Contrail+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500italic,300italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+
     <style type="text/css">
       body {
-        background: #F0F0E1;
-        padding: 10px;
+        margin: 0;
+        padding: 0;
+        background: #263B3F; #F5F4F5;
+      }
+      table.header {
+        padding: 15px;
+        width: 100%;
+        background: #182528;
+        margin-bottom: 50px;
       }
       table.wrapper {
-        padding: 50px;
-        width: 400px;
-        height: 300px;
+        padding: 30px;
+        width: 600px;
         margin: auto;
-        background: #F3FAE4;
+        background: #FFFFFF;
+        border: 1px solid #E6EDEB;
+      }
+      h1 {
+        font-family: 'Oswald';
+        font-style: italic;
+        letter-spacing: -1px;
+        font-size: 39px;
+        color: #FFF;
       }
     </style>
   </head>
 
   <body>
+    <table class="header">
+      <tr>
+        <td>
+          <h1 style="width: 600px; margin: auto; padding-left: 30px; font-weight: 400"><%= title %></h1>
+        </td>
+      </tr>
+    </table>
+
     <table class="wrapper"><tr><td>
       <table>
         <tr>
-          <h1 style="font-family: Raleway; font-weight: 100; font-size: 20px; letter-spacing: -1px;"><%= @title %></h1>
         </tr>
         <tr>
           <td>
@@ -31,11 +57,13 @@
         </tr>
       </table>
 
-
-      <table style="font-family: Helvetica; font-weight: 100; font-size: 11px; color: #297045;">
-        <td>StatusQuo</td>
-        <td><%= Date.today %></td>
-      </table>
     </td></tr></table>
+
+          <table style="width: 100%; padding:30px; font-family: 'lobster'; font-size: 14px; color: #FFF; #57665A">
+        <tr>
+          <td style="text-align: center">Powered by <u>StatusQuo</u></td>
+        </tr>
+      </table>
   </body>
+
 </html>

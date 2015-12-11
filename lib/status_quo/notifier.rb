@@ -1,11 +1,12 @@
 module StatusQuo
   class Notifier < ActionMailer::Base
-    layout "notifier"
+    layout "status_quo/notifier"
     default from: "rubydev5@bidmath.com"
 
     def event_notice(email, event)
-      @title = "StatusQuo Event Notice"
+      @title = "Event Notice"
       @event = event
+      @recipient = email
       mail(to: email, subject: "Status Quo - Event Notice", content_type: "text/html")
     end
 

@@ -1,6 +1,9 @@
-<p style="font-family: Helvetica; font-size: 13px; font-weight: 100; color: #5D7C71">
-Resource: <%= @event.resource.humanize %><br>
-Site: <%= @event.segment.capitalize %><br>
-<image></image><%= @event.moment %><br>
-<%= @event.status %>
-</p>
+<p style="font-family: Oxygen; font-size: 14px; color: #FFF; #4F514A">
+Hi, <%= @recipient %><br>
+The following segment failed to connect.<br>
+<br>
+<strong>Resource: <span style="color: #3FBA8D"><%= @event.resource.humanize %></span></strong><br>
+<strong>Segment: <span style="color: #3FBA8D"><%= @event.segment.capitalize %></span></strong><br>
+<br>
+<image></image><strong style="color: #3FBAAB"><%= @event.moment %></strong><br>
+<strong style="color: #3FBAAB"><%= @event.status %></strong></p>
