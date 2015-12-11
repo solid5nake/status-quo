@@ -29,10 +29,13 @@ body {
 }
 
 footer {
-  position:relative;
+  position: relative;
   height: 40px;
-  background: #F0F0E1;
+  background: #F1F9E0;
   border-top: 1px solid #DDD;
+  -webkit-box-shadow: 0px 0px 212px 47px rgba(219,255,252,0.5);
+  -moz-box-shadow: 0px 0px 212px 47px rgba(219,255,252,0.5);
+  box-shadow: 0px 0px 222px 47px rgba(219,255,252,0.5);
 }
 
 #header {
@@ -68,10 +71,31 @@ footer {
 }
 
 #container {
-  padding-bottom: 40px;
+  margin-bottom: -40px;
   width: 800px;
-  height: 400px;
   min-height: 100%;
   margin: auto;
   margin-top: -192px;
+  padding-bottom: 50px;
+  h2 {
+    padding-left: 25px;
+    font-family: 'helvetica neue';
+    font-size: 19px;
+    color: #525260;
+  }
+  .status_quo_events {
+    border: 1px solid #E0E0D2;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 212px 47px rgba(219,255,252,0.5);
+    -moz-box-shadow: 0px 0px 212px 47px rgba(219,255,252,0.5);
+    box-shadow: 0px 0px 222px 47px rgba(219,255,252,0.5);
+    padding: 50px;
+    tr.table_header {
+      font-family: 'helvetica neue';
+      color: #555555;
+      th.month, th.day{
+        font-weight: 400;
+      }
+    }
+  }
 }

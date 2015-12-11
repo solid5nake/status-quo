@@ -3,7 +3,7 @@
   <h2><%= resource.humanize %></h2>
   <table cellspacing="0">
     <thead>
-      <tr>
+      <tr class="table_header">
         <th class="month">
           <%= start_date.strftime("%B") %>
         </th>
@@ -41,7 +41,17 @@
                   end
                 end
               %>
-              <div class="<%= css_class %> <%= last_status.to_s.downcase %>">&nbsp;</div>
+              <%
+                data = {
+                  :segment => segment.humanize#,
+                  # :status  => status.humanize,
+                  # :date => event.moment.strftime("%D")
+                }
+              %>
+              <div class="<%= css_class %> <%= last_status.to_s.downcase %>" data-comments="<%= data.to_json %>">
+                &nbsp;
+                <span class="comment_count">3</span>
+              </div>
             </td>
           <% end %>
         </tr>
