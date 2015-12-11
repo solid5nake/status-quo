@@ -1,6 +1,5 @@
 require "status_quo/engine"
 require "status_quo/resource"
-require "status_quo/event"
 require "status_quo/notifier"
 require "status_quo/version"
 
